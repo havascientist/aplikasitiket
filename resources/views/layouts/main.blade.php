@@ -56,7 +56,7 @@
     <!-- footer -->
     <footer class="text-center py-3" style="background-color: #C90022;">
         <div class="container">
-          <span style="color: white;">copyright@2023</span>
+          <span style="color: white;">Made in Indonesia</span>
         </div>
         
     </footer>
@@ -67,6 +67,19 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        let selectedSeat = null;
+    const seats = document.querySelectorAll('.seat');
+    seats.forEach(seat => {
+      seat.addEventListener('click', () => {
+        if (selectedSeat) {
+          selectedSeat.classList.remove('selected');
+        }
+        seat.classList.add('selected');
+        selectedSeat = seat;
+      });
+    });
+    </script>
 </body>
 
 </html>

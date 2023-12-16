@@ -100,11 +100,11 @@
                     </div>
     
                     <!-- Forget PW -->
-                    <div class="mb-3 form-check">
+                    {{-- <div class="mb-3 form-check">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
                         @endif
-                    </div>
+                    </div> --}}
                     </div>
 
                     <div class="d-grid gap-2 mx-5 mt-3">

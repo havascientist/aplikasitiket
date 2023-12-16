@@ -1,0 +1,115 @@
+@extends('layouts.main')
+@section('container')
+
+
+
+<div class="konten p-5 d-flex justify-content-between"> {{-- d-flex untuk buat 2div dalam 1 div jadi naympingin. display
+    flex --}}
+    <div class="kiri mx-5" style="width: 54%">
+        <h5>Pilih Penumpang</h5>
+
+        <div class="text-center mb-5 mt-4 rounded-pill fw-bold p-2"
+            style="width: 25%; background-color: white; color: black">Penumpang 1</div>
+
+        <p class="fw-bold">Pilih Kursi</p>
+        <div class="form mb-3 p-3" style="background-color: rgb(255, 255, 255)">
+            <div class="text">Depan</div>
+            <div>
+                <div class="seat" id="A1" placeholder="A1"></div>
+                <div class="seat" id="A2" placeholder="A2"></div>
+                <div class="seat" id="A3" placeholder="A3"></div>
+                <div class="seat" id="A4" placeholder="A4"></div>
+                <div class="seat" id="A5" placeholder="A5"></div>
+                <div class="seat" id="A6" placeholder="A6"></div>
+                <div class="seat" id="A7" placeholder="A7"></div>
+                <div class="seat" id="A8" placeholder="A8"></div>
+                <div class="seat" id="A9" placeholder="A9"></div>
+                <div class="seat" id="A10" placeholder="A10"></div>
+                <div class="seat" id="A10" placeholder="A10"></div>
+                <div class="seat" id="A10" placeholder="A10"></div>
+                {{--
+            </div> --}}
+            {{-- <div> --}}
+                <div class="seat" id="B1" placeholder="B1"></div>
+                <div class="seat" id="B2" placeholder="B2"></div>
+                <div class="seat" id="B3" placeholder="B3"></div>
+                <div class="seat" id="B4" placeholder="B4"></div>
+                <div class="seat" id="B5" placeholder="B5"></div>
+                <div class="seat" id="B6" placeholder="B6"></div>
+                <div class="seat" id="B7" placeholder="B7"></div>
+                <div class="seat" id="B8" placeholder="B8"></div>
+                <div class="seat" id="B9" placeholder="B9"></div>
+                <div class="seat" id="B10" placeholder="B10"></div>
+                {{--
+            </div> --}}
+            {{-- <div> --}}
+                <div class="seat" id="C1" placeholder="C1"></div>
+                <div class="seat" id="C2" placeholder="C2"></div>
+                <div class="seat" id="C3" placeholder="C3"></div>
+                <div class="seat" id="C4" placeholder="C4"></div>
+                <div class="seat" id="C5" placeholder="C5"></div>
+                <div class="seat" id="C6" placeholder="C6"></div>
+                <div class="seat" id="C7" placeholder="C7"></div>
+                <div class="seat" id="C8" placeholder="C8"></div>
+                <div class="seat" id="C9" placeholder="C9"></div>
+                <div class="seat" id="C10" placeholder="C10"></div>
+                {{--
+            </div> --}}
+            {{-- <div> --}}
+                <div class="seat" id="D1" placeholder="D1"></div>
+                <div class="seat" id="D2" placeholder="D2"></div>
+                <div class="seat" id="D3" placeholder="D3"></div>
+                <div class="seat" id="D4" placeholder="D4"></div>
+                <div class="seat" id="D5" placeholder="D5"></div>
+                <div class="seat" id="D6" placeholder="D6"></div>
+                <div class="seat" id="D7" placeholder="D7"></div>
+                <div class="seat" id="D8" placeholder="D8"></div>
+                <div class="seat" id="D9" placeholder="D9"></div>
+                <div class="seat" id="D10" placeholder="D10"></div>
+            </div>
+            <div class="text d-flex justify-content-end">Belakang</div>
+        </div>
+
+        <div class="gerbong">
+            <label for="tipe" class="form-label">Pilih Gerbong</label>
+            <select class="form-select custom-input-size" id="tipe" name="tipe" required>
+                <option value="class1">First Class-1</option>
+                <option value="class2">First Class-2</option>
+            </select>
+        </div>
+    </div>
+    <div class="kanan p-3" style="width: 35%; background-color:white; color: black">
+        <div class="text-center p-3 rounded-1 fs-5" style="background-color: #C90022 ; color: white">Detail Pembayaran
+        </div>
+        <div class="detail p-4">
+            <h3 class="fw-bold">Rabu, 12 Desember 2023</h3>
+            <h5 class="fw-light">First Class - Kursi A6</h5>
+            <p class="fw-light">1 Dewasa</p>
+        </div>
+
+        <div class="jalan px-4 d-flex justify-content-between">
+            <div class="asal">
+                <div class="fw-bold fs-4">Jakarta</div>
+                <p class="fs-5 fw-light">16.00
+                    <br>12 Des 2023
+                </p>
+            </div>
+
+            <div class="icon"><img src="img/swap.svg" alt=""></div>
+
+            <div class="tujuan">
+                <div class="fw-bold fs-4">Bandung</div>
+                <p class="fs-5 fw-light">17.40
+                    <br>12 Des 2023
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center fw-light mb-2">Total <span class="fw-bold">Rp. 300.000</span></div>
+        <button class="btn fs-5 w-100 rounded-5 mb-2" style="background-color: #C90022; color:#FFFFFF">Lanjutkan ke
+            pembayaran</button>
+        <button class="btn fs-5 w-100 rounded-5" style="background-color: #C90022; color:#FFFFFF">Batalakan
+            Pemesanan</button>
+    </div>
+</div>
+@endsection
