@@ -14,7 +14,8 @@ class TiketController extends Controller
         return view('daftarTiket');
     }
 
-    public function getData(){
+    public function getData()
+    {
         $data = Tiket::all();
         return Datatables::of($data)->make(true);
     }
@@ -37,45 +38,39 @@ class TiketController extends Controller
         return view('result', compact('hasilPencarian'));
     }
 
+    public function hasilPencarianAPI(Request $request)
+    {
+        $asal = $request->input('dariMana');
+        $tujuan = $request->input('keMana');
+        $tanggal = $request->input('tanggal');
+
+        $hasilPencarian = DB::table('tiket')
+            ->where('asal', $asal)
+            ->where('tujuan', $tujuan)
+            ->where('tanggal', $tanggal)
+            ->get();
 
 
-    // public function hasil()
-    // {
-    //     return view('result');
-    // }
-    // public function hasilPencarian(Request $request)
-    // {
-    //     $asal = $request->input('dariMana');
-    //     $tujuan = $request->input('keMana');
-    //     $tanggal = $request->input('tanggal');
-
-    //     $query = DB::table('tiket')
-    //         ->where('asal', $asal)
-    //         ->where('tujuan', $tujuan)
-    //         ->where('tanggal', $tanggal);
-
-    //     return DataTables::of($query)->make(true);
-    // }
+        return response()->json(['data' => $hasilPencarian], 200);
+    }
 
     public function show(Tiket $tiket)
     {
         return view('editTiket', compact('tiket'));
     }
 
-    public function update(Request $request, Tiket $tiket) //controller buat edit
+    public function update(Request $request, Tiket $tiket)
     {
-    $request->validate([
-        'stok' => 'required|numeric',
-    ]);
-    
-    // Perbarui data koleksi dengan data yang dikirimkan dari formulir
-    
-    $affacted = DB::table('tiket')->where('id', $request->id)->update([
-        'stok' => $request->stok,
-    ]
-    );
-    // Redirect ke halaman yang sesuai, misalnya, halaman daftar koleksi
-    return redirect()->route('daftartiket')->with('success', 'Tiket berhasil diperbarui.');
-    }
+        $request->validate([
+            'stok' => 'required|numeric',
+        ]);
 
+        $affected = DB::table('tiket')
+            ->where('id', $request->id)
+            ->update([
+                'stok' => $request->stok,
+            ]);
+
+        return redirect()->route('daftartiket')->with('success', 'Tiket berhasil diperbarui.');
+    }
 }

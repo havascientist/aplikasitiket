@@ -8,7 +8,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -44,5 +46,29 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+        
+    public function loginAPI(LoginRequest $request): Response
+    {
+        // Validate the request
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Attempt to authenticate the user
+        if (Auth::attempt($request->only('email', 'password'))) {
+            // If authentication is successful, generate and return an API token using Sanctum
+            /** @var \App\Models\User $user **/
+            $user = Auth::user();
+            $token = $user->createToken('api-token')->plainTextToken;
+
+            return response(['token' => $token], 200);
+        }
+
+        // If authentication fails, return an error response
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
     }
 }

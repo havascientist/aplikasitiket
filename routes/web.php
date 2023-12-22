@@ -35,9 +35,9 @@ Route::get('/find', function () {
     return view('find');
 });
 
-Route::get('/admin', function () {
-    return view('admin');
-});
+// Route::get('/admin', function () {
+//     return view('admin');
+// });
 
 Route::get('/form', function () {
     return view('form');
