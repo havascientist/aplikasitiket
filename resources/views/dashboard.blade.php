@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
     <!-- Content -->
-    <div class="bg d-flex justify-content-center align-items-center">
+    <div class="bg d-flex justify-content-center align-items-center" style="height: 100vh">
       <div class="card mx-auto w-50">
           <form action="{{ route('hasil.pencarian') }}" method="post">
               @csrf
@@ -25,7 +25,9 @@
                       <label for="jumlahPenumpang" class="form-label" style="color: black;">Jumlah Penumpang</label>
                       <input type="number" class="form-control" id="jumlahPenumpang" name="jumlahPenumpang">
                   </div>
+
                   <button type="submit" class="btn mt-3" style="background-color: black; color: white;">Cari Tiket</button>
+                  
               </div>
           </form>
       </div>

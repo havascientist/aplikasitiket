@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
     <!-- Content -->
-    <div class="bg d-flex justify-content-center align-items-center">
+    <div class="bg d-flex justify-content-center align-items-center" style="height: 100vh">
       <div class="card mx-auto w-50">
           <form action="{{ route('hasil.pencarian') }}" method="post">
               @csrf

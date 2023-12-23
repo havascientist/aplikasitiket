@@ -1,3 +1,5 @@
+
+
 @extends('layouts.main')
 
 @section('container')
@@ -15,7 +17,7 @@
                                 <th>Tanggal</th>
                                 <th>Jam Keberangkatan</th>
                                 <th>Harga</th>
-                                <th>Stok</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,13 +27,15 @@
                                     <td>{{ $tiket->tujuan }}</td>
                                     <td>{{ $tiket->kategori }}</td>
                                     <td>{{ $tiket->tanggal }}</td>
-                                    <td>{{ $tiket->jam_keberangkatan }}</td>
+                                    <td>{{ $tiket->jam_berangkat }}</td>
                                     <td>{{ $tiket->harga }}</td>
-                                    <td>{{ $tiket->stok }}</td>
+                                    <td>
+                                        <a href="{{ route('pilihTiket', ['id' => $tiket->id]) }}" class="btn btn-success">Pilih Tiket</a>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8">Tidak ada hasil pencarian.</td>
+                                    <td colspan="7">Tidak ada hasil pencarian.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -41,6 +45,7 @@
         </div>
     </div>
 @endsection
+
 
 
 {{-- @extends('layouts.main')

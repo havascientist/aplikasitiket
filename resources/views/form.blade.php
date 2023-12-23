@@ -1,3 +1,9 @@
+@php
+    $selectedTiket = session('selectedTiket');
+    $formattedDate = \Carbon\Carbon::parse($selectedTiket['tanggal'])->format('l, d F Y');
+@endphp
+
+
 @extends('layouts.main')
 @section('container')
 <!-- Content -->
@@ -9,22 +15,27 @@
                 Detail
             </div>
             <div class="ounded-end text-center" style="background-color: #C90022; color: #C90022">
-                garis merah doang
+                outline
             </div>
             <div class="header p-2" style="background-color: #FFFFFF">
                 <h1 class="fs-5">Bandung Jakarta Intercity Rails</h1>
-                <p style="color: #808080;">Rabu, 12 Desember 2023 - <span style="color: #000000;">First Class</span></p>
+                <p style="color: #808080;">{{ $formattedDate }} -<span style="color: #000000;">{{ $selectedTiket['kategori'] }}</span></p>
             </div>
         </div>
+
+
 
         <div class="bawah">
             <div class="rounded-top fs-6 p-2" style="background-color: #C90022; color: white;">
                 Detail Penumpang
             </div>
             <div class="header p-3" style="background-color: #FFFFFF">
-                <h1 class="fs-6 mb-4">Penumpang 1: Dewasa</h1>
-                <form method="POST" action="{{ route('login') }}">
+                <h1 class="fs-6 mb-4">Penumpang {{ $selectedTiket['jumlahPenumpang'] }}: Dewasa</h1>
+                <form method="POST" action="{{ route('processInputData') }}">
                     @csrf
+                    <!-- Tambahkan input hidden untuk ID tiket -->
+                    <input type="hidden" name="tiket_id" value="{{ $selectedTiket['id'] }}">
+                    <input type="hidden" name="jumlahPenumpang" value="{{ $selectedTiket['jumlahPenumpang'] }}">
 
                     <div class="form d-flex">
                         <div class="form-left" style="width: 50%">
@@ -73,6 +84,11 @@
                                 <input type="text" class="form-control" id="alamat" name="alamat"
                                     placeholder="Nama Daerah" required>
                             </div>
+                            <div class="mb-3 mx-3">
+                                <img src="img/lok.png" alt="">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <input type="hidden" class="form-control" id="total_harga" name="total_harga" value="{{ $selectedTiket['harga'] * $selectedTiket['jumlahPenumpang'] }}" required>
+                            </div>
                         </div>
                     </div>
             </div>
@@ -81,24 +97,24 @@
 
     {{-- end kiri --}}
 
-    <div class="kanan mt-5 mx-4" style="width: 30%;">
+    <div class="kanan mt-5 mx-4" style="width: 30%; color: black;">
         <div class="card mb-2">
             <div class="card-body">
                 <h1 class="fs-5">Bandung Jakarta Intercity Rails</h1>
-                <p style="font-size: 13px" style="color:#808080">Rabu, 12 Desember 2023 - First Class </p>
+                <p style="font-size: 13px" style="color:#808080">{{ $formattedDate }} - {{ $selectedTiket['kategori'] }}</p>
             </div>
             <div class="card-footer d-flex justify-content-between">
                 <div class="text-kelas" style="color: #808080">First Class 2</div>
-                <div class="text-harga">Rp. 300.000</div>
+                <div class="text-harga">{{ $selectedTiket['harga'] }}</div> 
             </div>
         </div>
 
         <div class="card p-3" style="background-color: #FFFFFF">
             <div class="text fs-6 mb-4">
-                Harga tiket untuk 1 orang dewasa
+                Harga tiket untuk {{ $selectedTiket['jumlahPenumpang'] }} orang dewasa
             </div>
 
-            <h3>Total Rp. 300.000</h3>
+             <h3>Total Rp. {{ $selectedTiket['harga'] * $selectedTiket['jumlahPenumpang'] }}</h3>
 
             <button class="btn" style="background-color: #C90022; color:#FFFFFF" type="submit">Lanjutkan pemilihan
                 kursi</button>

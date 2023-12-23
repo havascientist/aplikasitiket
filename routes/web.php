@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TiketController;
+use App\Http\Controllers\InputDataController;
+use App\Http\Controllers\PemilihanKursiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,20 +21,28 @@ Route::get('/daftar-pencarian', [TiketController::class, 'hasil'])->name('daftar
 Route::get('/getData', [TiketController::class, 'getData'])->name('tiket.getData');
 Route::get('/editTiket/{tiket}', [TiketController::class, 'show'])->name('tiket.editTiket');
 Route::put('/updateTiket', [TiketController::class, 'update'])->name('tiket.update');
+
+
+
+Route::get('/pemilihan-kursi', [PemilihanKursiController::class, 'showPemilihanKursi'])->name('pemilihanKursi');
+Route::post('/pemilihan-kursi', [PemilihanKursiController::class, 'prosesPemilihanKursi'])->name('prosesPemilihanKursi');
 // Route::get('/search', 'TicketController@search');
 
 // Route::post('/cari', [TiketController::class, 'cari'])->name('cari.tiket');
 
 Route::post('/hasil-pencarian', [TiketController::class, 'hasilPencarian'])->name('hasil.pencarian');   
+Route::GET('/pilih-tiket/{id}', [TiketController::class, 'pilihtiket'])->name('pilihTiket');
+Route::post('/input-data', [InputDataController::class, 'inputData'])->name('processInputData'); 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/index', function () {
     return view('uhuy');
 });
 Route::get('/find', function () {
-    return view('find');
+    return view('find')->name('find');
 });
 
 Route::get('/admin', function () {
@@ -41,7 +51,7 @@ Route::get('/admin', function () {
 
 Route::get('/form', function () {
     return view('form');
-});
+})->name('form');
 
 Route::get('/seat', function () {
     return view('pilih-kursi');
