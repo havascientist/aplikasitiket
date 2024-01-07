@@ -44,11 +44,13 @@
                 {
                     data: null,
                     render: function (data) {
-                        return '<a href="' + "{{ route('tiket.editTiket', ['tiket' => '']) }}" + '/' + data.id + '"><i class="bi bi-box-arrow-in-up-right"></i></a>';
+                        return '<a href="' + "{{ route('pilihTiket', '') }}" + '/' + data.id + '"><i class="bi bi-pencil-square"></i></a>';
                     },
                     orderable: false,
                     searchable: false
                 }
+                
+            
             ]
         });
     });

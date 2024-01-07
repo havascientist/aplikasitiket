@@ -55,6 +55,7 @@ class InputDataController extends Controller
         'tanggal' => $request->input('tanggal'),
         'jam_berangkat' => $request->input('jam_berangkat'),
         'harga' => $request->input('harga'),
+        'total_harga' => $request->input('total_harga'),
         'jumlah_penumpang' => $jumlahPenumpang,
         // tambahkan informasi lain yang dibutuhkan
     ];

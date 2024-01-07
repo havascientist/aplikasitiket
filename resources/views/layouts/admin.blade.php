@@ -17,19 +17,12 @@
     <!-- Header -->
     <nav class="navbar navbar-light" style="background-color: #ffff;">        
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/Logo.png') }}" alt="" width="100" height="50">
 
             </a>
             <div class="d-flex gap-4">
                 @auth
-                <div class="history">
-                    <a href="{{ route('history') }}">
-                        <button class="btn bg-dark   text-light" type="button">
-                            My Booking
-                        </button>
-                    </a>
-                </div>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle bg-dark   text-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ Auth::user()->name }}

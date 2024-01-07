@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth;
 use App\Models\Tiket;
-use Yajra\DataTables\DataTables;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+// use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\DataTables;
 class TiketController extends Controller
 {
     public function index()
@@ -15,11 +17,18 @@ class TiketController extends Controller
         return view('daftarTiket');
     }
 
-    public function getData()
-    {
-        $data = Tiket::all();
-        return Datatables::of($data)->make(true);
-    }
+    public function hasilTiket($transactionId)
+{
+    $transaction = Transaction::with(['passenger', 'seat', 'tiket'])->find($transactionId);
+
+    // if (!$transaction) {
+    //     // Handle transaksi tidak ditemukan
+    //     // Misalnya, tampilkan pesan error atau redirect ke halaman lain
+    // }
+
+    return view('hasil_tiket', ['transaction' => $transaction]);
+}
+
 
     public function hasilPencarian(Request $request)
 {
@@ -43,8 +52,20 @@ class TiketController extends Controller
 
 public function pilihTiket($id)
 {
-    // Misalnya, dapatkan informasi tiket dari database berdasarkan ID
+    // Pengecekan apakah pengguna sudah login
+    if (!auth()->check()) {
+        // Jika belum login, arahkan ke halaman login dengan pesan peringatan
+        return redirect()->route('login')->with('warning', 'Anda harus login terlebih dahulu.');
+    }
+
+    // Dapatkan informasi tiket dari database berdasarkan ID
     $selectedTiket = Tiket::find($id);
+
+    // Periksa apakah tiket ditemukan
+    if (!$selectedTiket) {
+        // Handle jika tiket tidak ditemukan, misalnya, redirect ke halaman lain atau tampilkan pesan kesalahan
+        return redirect()->route('halaman_lain')->with('error', 'Tiket tidak ditemukan.');
+    }
 
     // Ambil jumlah penumpang dari session pencarian sebelumnya
     $jumlahPenumpang = Session::get('jumlahPenumpang', 0);
@@ -64,6 +85,7 @@ public function pilihTiket($id)
 
     return redirect()->route('form');
 }
+
 
     public function hasilPencarianAPI(Request $request)
     {
@@ -99,5 +121,76 @@ public function pilihTiket($id)
             ]);
 
         return redirect()->route('daftartiket')->with('success', 'Tiket berhasil diperbarui.');
+    }
+
+
+
+    public function getTiket(){
+        $data = Tiket::all();
+        return Datatables::of($data)->make(true);
+    }
+
+    public function history()
+    {
+        // Get the currently logged-in user
+       // Get the currently logged-in user
+        // $user = Auth::user();
+        $user = auth()->user();
+
+        // Fetch transactions associated with the user
+        $transactions = $user->transactions()->get();
+
+        // Pass the transactions to the view
+        return view('history', compact('transactions'));
+    }
+
+    public function detailTiket($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        return view('detailTiket', compact('transaction'));
+    }
+
+    public function viewAddTiket() {
+        return view('admin.tambahTiket');
+    }
+
+    public function addTiket(Request $request) {
+        $data = $request->validate([
+            "asal" => "required",
+            "tujuan" => "required",
+            "kategori" => "required",
+            "tanggal" => "required",
+            "jam_berangkat" => "required",
+            "harga" => "required",
+        ]);
+        
+        Tiket::create($data);
+        
+        return back();
+    }
+    
+    public function updateTiket(Request $request, Tiket $tiket) {
+        $data = $request->validate([
+            "asal" => "required",
+            "tujuan" => "required",
+            "kategori" => "required",
+            "tanggal" => "required",
+            "jam_berangkat" => "required",
+            "harga" => "required",
+        ]);
+
+        $tiket->update($data);
+
+        return redirect()->route("tiket.viewTiket");
+    }
+
+    public function edittiket(Tiket $tiket) {
+        return view("admin.editTiket", ["tiket" => $tiket]);
+    }
+
+    public function deletetiket(Tiket $tiket) {
+        $tiket->delete();
+        return back();
     }
 }

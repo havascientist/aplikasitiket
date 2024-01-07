@@ -9,9 +9,9 @@ use App\Models\Transaction;
 class Seat extends Model
 {
     // use HasFactory;
-    protected $fillable = ['nomor_kursi'];
-    public function transaction()
-{
-    return $this->belongsTo(Transaction::class);
-}
+    protected $fillable = ['id', 'nomor_kursi'];
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

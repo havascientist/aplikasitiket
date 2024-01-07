@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
+use auth;
+use App\Models\Seat;
 // SeatController.php
 // use App\Http\Controllers\App\Models\Transaction;
-use App\Models\Transaction;
-use App\Models\Seat;
 use App\Models\Passenger;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 // use Illuminate\Http\Request;
 
 class PemilihanKursiController extends Controller
@@ -16,6 +17,7 @@ class PemilihanKursiController extends Controller
     // PemilihanKursiController.php
 public function showPemilihanKursi()
 {
+    $selectedTiket = session('selectedTiket');
     // Ambil data penumpang dari session
     $penumpang = session('penumpang');
 
@@ -85,19 +87,28 @@ public function prosesPemilihanKursi(Request $request)
 
     // Dapatkan ID passenger yang baru dibuat
     $passengerId = $passenger->id;
+    $userId = auth()->id();
 
-    // Simpan data ke dalam tabel Transaction
+    if ($userId == null) {
+        return redirect()->route('login')->with('status', 'Silahkan masuk terlebih dahulu');
+    }    
+
     $transaction = Transaction::create([
+        'users_id' => $userId,
         'tiket_id' => $selectedTiket['id'],
         'passengers_id' => $passengerId,
-        'seats_id' => json_encode($selectedSeats), // Menggunakan JSON untuk menyimpan array ID kursi
-        'total_harga' => $selectedTiket['harga'] * $jumlahPenumpang,
+        'seats_id' => $selectedTiket['id'],
+        'total_harga' => $selectedTiket['total_harga'],
+        
     ]);
+
+    $transaction['total_harga'];
 
     // Bersihkan sesi setelah selesai
     session()->forget(['selectedTiket', 'penumpang', 'selectedSeats']);
 
-    return redirect()->route('dashboard'); // Ganti dengan rute yang sesuai
+    return redirect()->route('hasil_tiket', ['transactionId' => $transaction->id]);
+    // return redirect()->route('hasil_tiket'); // Ganti dengan rute yang sesuai
 }
 
 

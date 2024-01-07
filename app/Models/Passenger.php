@@ -8,10 +8,10 @@ use App\Models\Transaction;
 class Passenger extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['jenis_identitas', 'no_identitas', 'nama', 'email', 'no_hp', 'alamat'];
+    protected $fillable = ['id', 'jenis_identitas', 'no_identitas', 'nama', 'email', 'no_hp', 'alamat'];
 
-    public function transaction()
-{
-    return $this->belongsTo(Transaction::class);
-}
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

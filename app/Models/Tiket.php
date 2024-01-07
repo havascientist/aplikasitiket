@@ -10,7 +10,9 @@ class tiket extends Model
 {
     // use HasFactory;
     protected $table = 'tikets';
-    protected $fillable = ['asal', 'tujuan', 'kategori', 'tanggal', 'jam_berangkat', 'harga'];
+    protected $fillable = ['id', 'asal', 'tujuan', 'kategori', 'tanggal', 'jam_berangkat', 'harga'];
+
+    public $timestamps = false;
 
     public function transactions()
 {

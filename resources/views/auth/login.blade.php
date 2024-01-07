@@ -58,7 +58,23 @@
 </head>
 
 <body>
-    
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('warning'))
+    <div class="alert alert-warning">
+        {{ session('warning') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
     <!-- Content -->
     <div class="bg d-flex justify-content-between"> {{-- ini background --}}
@@ -111,7 +127,7 @@
                         <button class="btn btn-primary btn-sm fw-bold" type="submit" style="background: #C90022">{{ __('Log in') }}</button>
                     </div>
 
-                    <div class="text-center mt-2">Don't have an account?<a href="/register">Register</a></div>
+                    <div class="text-center mt-2">Don't have an account? <a href="/register" class="text-decoration-none">Register</a></div>
                 </form>
             </div>
         </div>

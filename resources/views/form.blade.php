@@ -30,14 +30,23 @@
                 Detail Penumpang
             </div>
             <div class="header p-3" style="background-color: #FFFFFF">
-                <h1 class="fs-6 mb-4">Penumpang {{ $selectedTiket['jumlahPenumpang'] }}: Dewasa</h1>
+                {{-- <h1 class="fs-6 mb-4">Penumpang {{ $selectedTiket['jumlahPenumpang'] }}: Dewasa</h1> --}}
                 <form method="POST" action="{{ route('processInputData') }}">
                     @csrf
                     <!-- Tambahkan input hidden untuk ID tiket -->
                     <input type="hidden" name="tiket_id" value="{{ $selectedTiket['id'] }}">
+                    <input type="hidden" name="asal" value="{{ $selectedTiket['asal'] }}">
+                    <input type="hidden" name="tujuan" value="{{ $selectedTiket['tujuan'] }}">
+                    <input type="hidden" name="kategori" value="{{ $selectedTiket['kategori'] }}">
+                    <input type="hidden" name="tanggal" value="{{ $selectedTiket['tanggal'] }}">
+                    <input type="hidden" name="jam_berangkat" value="{{ $selectedTiket['jam_berangkat'] }}">
                     <input type="hidden" name="jumlahPenumpang" value="{{ $selectedTiket['jumlahPenumpang'] }}">
+                    <input type="hidden" name="harga" value="{{ $selectedTiket['harga'] }}">
+                    <input type="hidden" name="total_harga" value="{{ $selectedTiket['harga'] * $selectedTiket['jumlahPenumpang'] }}">
 
-                    <div class="form d-flex">
+                    @for ($i = 1; $i <= $selectedTiket['jumlahPenumpang']; $i++)
+                    <h1 class="fs-6 mb-4"> Penumpang {{ $i }}</h1>
+                    <div class="form d-flex mb-4">
                         <div class="form-left" style="width: 50%">
                             <div class="mb-3 mx-5">
                                 <img src="img/id.png" alt="">
@@ -73,8 +82,8 @@
                         <div class="form-right" style="width: 50%">
                             <div class="mb-3 mx-3">
                                 <img src="img/telp.png" alt="">
-                                <label for="email" class="form-label">No Handphone</label>
-                                <input type="email" class="form-control" id="email" name="email"
+                                <label for="noHp" class="form-label">No Handphone</label>
+                                <input type="number" class="form-control" id="noHp" name="noHp"
                                     placeholder="08xxxxxxxxx" required>
                             </div>
 
@@ -84,13 +93,11 @@
                                 <input type="text" class="form-control" id="alamat" name="alamat"
                                     placeholder="Nama Daerah" required>
                             </div>
-                            <div class="mb-3 mx-3">
-                                <img src="img/lok.png" alt="">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <input type="hidden" class="form-control" id="total_harga" name="total_harga" value="{{ $selectedTiket['harga'] * $selectedTiket['jumlahPenumpang'] }}" required>
-                            </div>
+
                         </div>
                     </div>
+                    @endfor
+
             </div>
         </div>
     </div>

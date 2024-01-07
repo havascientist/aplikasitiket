@@ -11,20 +11,34 @@ use App\Models\Seat;
 class Transaction extends Model
 {
     // use HasFactory;,
-    protected $fillable = ['penumpang_id', 'seat_id', 'tiket_id', 'total_harga'];
+    protected $fillable = ['id', 'users_id', 'passengers_id', 'seats_id', 'tiket_id', 'total_harga'];
 
-    public function tickets()
-{
-    return $this->belongsTo(Tiket::class);
-}
+    public function tiket()
+    {
+        return $this->belongsTo(Tiket::class, 'tiket_id');
+    }
 
-public function passengers()
-{
-    return $this->hasMany(Passenger::class);
-}
+//     public function tickets()
+// {
+//     return $this->belongsTo(Tiket::class);
+// }
 
-public function seats()
+public function passenger()
+    {
+        return $this->belongsTo(Passenger::class, 'passengers_id');
+    }
+
+// public function passengers()
+// {
+//     return $this->hasMany(Passenger::class);
+// }
+
+public function seat()
 {
-    return $this->hasMany(Seat::class);
+    return $this->belongsTo(Seat::class, 'seats_id');
 }
+// public function seats()
+// {
+//     return $this->hasMany(Seat::class);
+// }
 }

@@ -55,7 +55,7 @@
                         <button class="btn btn-primary btn-sm fw-bold" type="submit" style="background: #C90022">{{ __('Register') }}</button>
                     </div>
 
-                    <div class="text-center mt-2">Already register? <a href="/login">Login</a></div>
+                    <div class="text-center mt-2">Already register? <a href="/login" class="text-decoration-none">Login</a></div>
                 </form>
             </div>
         </div>
